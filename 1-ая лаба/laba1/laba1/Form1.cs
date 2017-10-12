@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Net;
 using System.IO;
 using Newtonsoft.Json;
+using System.Net.Mail;
+using System.Threading;
 
 namespace laba1
 {
@@ -20,7 +22,24 @@ namespace laba1
             InitializeComponent();
         }
 
-        private string Get_API(string url)
+        private bool Send_Message(string data)
+        {
+            bool result = false;
+
+            MailAddress from = new MailAddress("ilya.sav.98@mail.ru", "ilya");
+            MailAddress to = new MailAddress("sis373737@tut.by");
+            MailMessage m = new MailMessage(from, to);
+            m.Subject = "JSON";
+            m.Body = data;
+            m.IsBodyHtml = true;
+            SmtpClient smtp = new SmtpClient("smtp.mail.ru", 465);
+            smtp.Credentials = new NetworkCredential("ilya.sav.98@mail.ru", "ilisav238");
+            smtp.EnableSsl = true;
+            smtp.Send(m);
+            return result;
+        }
+
+        private async Task<string> Get_API(string url)
         {
             string result;
             HttpWebRequest myHttwebrequest = (HttpWebRequest)HttpWebRequest.Create(url);
@@ -42,11 +61,16 @@ namespace laba1
             return result;
         }
 
-        private void Output_Data()
+        private async Task<string> Asyng_Get_API(string url)
         {
-            string API = Get_API(URL.Text);
-            MyСurrency currency = Deserialize_String(API);
-            Show_Data.Text = API;
+            var res = await Get_API(url);
+            Thread.Sleep(1000);
+            return res;
+        }
+
+        private void Output_Data(string data, MyСurrency currency)
+        {
+            Show_Data.Text = data;
             Output.Text =
                 "Буквенный код: " + currency.Cur_Abbreviation + Environment.NewLine +
                 "Цифровой код: " + currency.Cur_Code + Environment.NewLine +
@@ -69,7 +93,23 @@ namespace laba1
 
         private void Get_Data_Click(object sender, EventArgs e)
         {
-            Output_Data();
+            string API = Asyng_Get_API(URL.Text).Result;
+            MyСurrency currency = Deserialize_String(API);
+            Output_Data(API, currency);
+            timer1.Start();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Send_Message(Output.Text);
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            string API = Get_API(URL.Text).Result;
+            MyСurrency currency = Deserialize_String(API);
+            Output_Data(API, currency);
+            time.Text = DateTime.Now.ToString();
         }
     }
 
