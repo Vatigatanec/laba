@@ -7,3 +7,5 @@ D:\Учеба\3-ий курс\СПП\1-ая лаба\laba1\laba1\obj\Debug\laba1
 D:\Учеба\3-ий курс\СПП\1-ая лаба\laba1\laba1\obj\Debug\laba1.csproj.GenerateResource.Cache
 D:\Учеба\3-ий курс\СПП\1-ая лаба\laba1\laba1\obj\Debug\laba1.exe
 D:\Учеба\3-ий курс\СПП\1-ая лаба\laba1\laba1\obj\Debug\laba1.pdb
+D:\Учеба\3-ий курс\СПП\1-ая лаба\laba1\laba1\bin\Debug\Newtonsoft.Json.dll
+D:\Учеба\3-ий курс\СПП\1-ая лаба\laba1\laba1\bin\Debug\Newtonsoft.Json.xml
