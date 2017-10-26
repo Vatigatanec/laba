@@ -48,19 +48,10 @@ namespace WcfService1
             return res;
         }
 
-        private void Deser_Data(object data, ref MyСurrency currency)
-        {
-            currency = JsonConvert.DeserializeObject<MyСurrency>((string)data);
-            //return currency;
-        }
-
         
-        public MyСurrency Get_Data_Web()
+        public string Get_Data_Web()
         {
-            string API = Asyng_Get_API(URL).Result;
-            MyСurrency currency = null;
-            ThreadPool.QueueUserWorkItem(_ => Deser_Data(API, ref currency));
-            return currency;
+            return Asyng_Get_API(URL).Result;
         }
 
         public CompositeType GetDataUsingDataContract(CompositeType composite)
@@ -74,27 +65,6 @@ namespace WcfService1
                 composite.StringValue += "Suffix";
             }
             return composite;
-        }
-
-        public class MyСurrency
-        {
-            public int Cur_ID { get; set; }
-            public int Cur_ParentID { get; set; }
-            public string Cur_Code { get; set; }
-            public string Cur_Abbreviation { get; set; }
-            public string Cur_Name { get; set; }
-            public string Cur_Name_Bel { get; set; }
-            public string Cur_Name_Eng { get; set; }
-            public string Cur_QuotName { get; set; }
-            public string Cur_QuotName_Bel { get; set; }
-            public string Cur_QuotName_Eng { get; set; }
-            public string Cur_NameMulti { get; set; }
-            public string Cur_Name_BelMulti { get; set; }
-            public string Cur_Name_EngMulti { get; set; }
-            public int Cur_Scale { get; set; }
-            public int Cur_Periodicity { get; set; }
-            public DateTime Cur_DateStart { get; set; }
-            public DateTime Cur_DateEnd { get; set; }
         }
     }
 }

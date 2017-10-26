@@ -22,21 +22,11 @@ namespace laba1
             InitializeComponent();
         }
 
+        public ServiceReference1.Service1Client client = new ServiceReference1.Service1Client();
 
         private bool Send_Message(string data)
         {
             bool result = false;
-
-            /*MailAddress from = new MailAddress("ilyavatigatanec@gmail.com", "Илья");
-            MailAddress to = new MailAddress("sis37373@gmail.com");
-            MailMessage m = new MailMessage(from, to);
-            m.Subject = "Результат";
-            m.Body = data;
-            m.IsBodyHtml = true;
-            SmtpClient smtp = new SmtpClient("smtp.gmail.ru", 587);
-            smtp.Credentials = new NetworkCredential("ilyavatigatanec@gmail.com", "XTHYSQjnhzl7");
-            smtp.EnableSsl = true;
-            smtp.Send(m);*/
 
             var fromAddress = new MailAddress("ilyavatigatanec@gmail.com", "Ilia");
             var toAddress = new MailAddress("sis37373@gmail.com", "Ilia");
@@ -61,7 +51,6 @@ namespace laba1
             {
                 smtp.Send(message);
             }
-
             return result;
         }
 
@@ -88,44 +77,63 @@ namespace laba1
             return res;
         }
 
-        private void Deser_Data(object data,ref MyСurrency currency)
+        private void Deser_Data(object data, ref MyСurrency currency)
         {
-            currency = JsonConvert.DeserializeObject<MyСurrency>((string)data);
-            //return currency;
+            try
+            {
+                currency = JsonConvert.DeserializeObject<MyСurrency>((string)data);
+            }
+            catch (Exception ex)
+            {
+                Show_Data.Text = ex.Message;
+            }
         }
 
         private void Output_Data(object data, MyСurrency currency)
         {
-            //MyСurrency currency = JsonConvert.DeserializeObject<MyСurrency>((string)obj.data);
-            Show_Data.Text  = (string)data;
-            Output.Text =
-                "Буквенный код: " + currency.Cur_Abbreviation + Environment.NewLine +
-                "Цифровой код: " + currency.Cur_Code + Environment.NewLine +
-                "Дата исключения валюты из перечня валют: " + currency.Cur_DateEnd + Environment.NewLine +
-                "Дата включения валюты в перечень валют: " + currency.Cur_DateStart + Environment.NewLine +
-                "Внутренний код: " + currency.Cur_ID + Environment.NewLine +
-                "Наименование валюты на русском языке: " + currency.Cur_Name + Environment.NewLine +
-                "Наименование валюты на русском языке во множественном числе: " + currency.Cur_NameMulti + Environment.NewLine +
-                "Наименование на белорусском языке: " + currency.Cur_Name_Bel + Environment.NewLine +
-                "Наименование валюты на белорусском языке во множественном числе: " + currency.Cur_Name_BelMulti + Environment.NewLine +
-                "Наименование на английском языке: " + currency.Cur_Name_Eng + Environment.NewLine +
-                "Наименование на английском языке во множественном числе: " + currency.Cur_Name_EngMulti + Environment.NewLine +
-                "Этот код используется для связи, при изменениях наименования: " + currency.Cur_ParentID + Environment.NewLine +
-                "Периодичность установления курса: " + currency.Cur_Periodicity + Environment.NewLine +
-                "Наименование валюты на русском языке, содержащее количество единиц: " + currency.Cur_QuotName + Environment.NewLine +
-                "Наименование на белорусском языке, содержащее количество единиц: " + currency.Cur_QuotName_Bel + Environment.NewLine +
-                "Наименование на английском языке, содержащее количество единиц: " + currency.Cur_QuotName_Eng + Environment.NewLine +
-                "Количество единиц иностранной валюты: " + currency.Cur_Scale + Environment.NewLine;
+            try
+            {
+                Show_Data.Text = (string)data;
+                Output.Text =
+                    "Буквенный код: " + currency.Cur_Abbreviation + Environment.NewLine +
+                    "Цифровой код: " + currency.Cur_Code + Environment.NewLine +
+                    "Дата исключения валюты из перечня валют: " + currency.Cur_DateEnd + Environment.NewLine +
+                    "Дата включения валюты в перечень валют: " + currency.Cur_DateStart + Environment.NewLine +
+                    "Внутренний код: " + currency.Cur_ID + Environment.NewLine +
+                    "Наименование валюты на русском языке: " + currency.Cur_Name + Environment.NewLine +
+                    "Наименование валюты на русском языке во множественном числе: " + currency.Cur_NameMulti + Environment.NewLine +
+                    "Наименование на белорусском языке: " + currency.Cur_Name_Bel + Environment.NewLine +
+                    "Наименование валюты на белорусском языке во множественном числе: " + currency.Cur_Name_BelMulti + Environment.NewLine +
+                    "Наименование на английском языке: " + currency.Cur_Name_Eng + Environment.NewLine +
+                    "Наименование на английском языке во множественном числе: " + currency.Cur_Name_EngMulti + Environment.NewLine +
+                    "Этот код используется для связи, при изменениях наименования: " + currency.Cur_ParentID + Environment.NewLine +
+                    "Периодичность установления курса: " + currency.Cur_Periodicity + Environment.NewLine +
+                    "Наименование валюты на русском языке, содержащее количество единиц: " + currency.Cur_QuotName + Environment.NewLine +
+                    "Наименование на белорусском языке, содержащее количество единиц: " + currency.Cur_QuotName_Bel + Environment.NewLine +
+                    "Наименование на английском языке, содержащее количество единиц: " + currency.Cur_QuotName_Eng + Environment.NewLine +
+                    "Количество единиц иностранной валюты: " + currency.Cur_Scale + Environment.NewLine;
+            }
+            catch (Exception ex)
+            {
+                Show_Data.Text = ex.Message;
+            }
         }
 
         private void Get_Data_Click(object sender, EventArgs e)
         {
-            string API = Asyng_Get_API(URL.Text).Result;
-            MyСurrency currency = null;
-            ThreadPool.QueueUserWorkItem(_ => Deser_Data(API,ref currency));
-            Thread.Sleep(1000);
-            Output_Data(API, currency);
-            timer1.Start();
+            try
+            {
+                string API = Asyng_Get_API(URL.Text).Result;
+                MyСurrency currency = null;
+                ThreadPool.QueueUserWorkItem(_ => Deser_Data(API, ref currency));
+                Thread.Sleep(1000);
+                Output_Data(API, currency);
+                timer1.Start();
+            }
+            catch (Exception ex)
+            {
+                Show_Data.Text = ex.Message;
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -135,12 +143,35 @@ namespace laba1
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            string API = Get_API(URL.Text).Result;
-            MyСurrency currency = null;
-            ThreadPool.QueueUserWorkItem(_ => Deser_Data(API, ref currency));
-            Thread.Sleep(1000);
-            Output_Data(API, currency);
-            time.Text = DateTime.Now.ToString();
+            try
+            {
+                string API = Get_API(URL.Text).Result;
+                MyСurrency currency = null;
+                ThreadPool.QueueUserWorkItem(_ => Deser_Data(API, ref currency));
+                Thread.Sleep(1000);
+                Output_Data(API, currency);
+                time.Text = DateTime.Now.ToString();
+            }
+            catch (Exception ex)
+            {
+                Show_Data.Text = ex.Message;
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string API = client.Get_Data_Web();
+                MyСurrency curr = null;
+                ThreadPool.QueueUserWorkItem(_ => Deser_Data(API, ref curr));
+                Thread.Sleep(1000);
+                Output_Data(API, curr);
+            }
+            catch (Exception ex)
+            {
+                Show_Data.Text = ex.Message;
+            }
         }
     }
 
@@ -164,5 +195,4 @@ namespace laba1
         public DateTime Cur_DateStart { get; set; }
         public DateTime Cur_DateEnd { get; set; }
     }
-
 }
