@@ -27,16 +27,41 @@ namespace laba1
         {
             bool result = false;
 
-            MailAddress from = new MailAddress("ilyaVatigatanec@gmail.com", "ilya");
+            /*MailAddress from = new MailAddress("ilyavatigatanec@gmail.com", "Илья");
             MailAddress to = new MailAddress("sis37373@gmail.com");
             MailMessage m = new MailMessage(from, to);
-            m.Subject = "JSON";
-            m.Body = "gjxtve yt hf,jnftn";
+            m.Subject = "Результат";
+            m.Body = data;
             m.IsBodyHtml = true;
             SmtpClient smtp = new SmtpClient("smtp.gmail.ru", 587);
-            smtp.Credentials = new NetworkCredential("ilyaVatigatanec@gmail.com", "XTHYSQjnhzl7");
+            smtp.Credentials = new NetworkCredential("ilyavatigatanec@gmail.com", "XTHYSQjnhzl7");
             smtp.EnableSsl = true;
-            smtp.Send(m);
+            smtp.Send(m);*/
+
+            var fromAddress = new MailAddress("ilyavatigatanec@gmail.com", "Ilia");
+            var toAddress = new MailAddress("sis37373@gmail.com", "Ilia");
+            const string fromPassword = "XTHYSQjnhzl7";
+            const string subject = "Json";
+            string body = data;
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+            };
+            using (var message = new MailMessage(fromAddress, toAddress)
+            {
+                Subject = subject,
+                Body = body
+            })
+            {
+                smtp.Send(message);
+            }
+
             return result;
         }
 
