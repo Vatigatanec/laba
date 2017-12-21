@@ -37,11 +37,14 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.time = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // URL
             // 
-            this.URL.Location = new System.Drawing.Point(12, 12);
+            this.URL.Location = new System.Drawing.Point(10, 25);
             this.URL.Name = "URL";
             this.URL.Size = new System.Drawing.Size(143, 20);
             this.URL.TabIndex = 0;
@@ -49,71 +52,101 @@
             // 
             // Get_Data
             // 
-            this.Get_Data.Location = new System.Drawing.Point(12, 38);
+            this.Get_Data.Location = new System.Drawing.Point(10, 51);
             this.Get_Data.Name = "Get_Data";
-            this.Get_Data.Size = new System.Drawing.Size(102, 39);
+            this.Get_Data.Size = new System.Drawing.Size(143, 39);
             this.Get_Data.TabIndex = 1;
-            this.Get_Data.Text = "Получить данные";
+            this.Get_Data.Text = "Получить API";
             this.Get_Data.UseVisualStyleBackColor = true;
             this.Get_Data.Click += new System.EventHandler(this.Get_Data_Click);
             // 
             // Show_Data
             // 
-            this.Show_Data.Location = new System.Drawing.Point(12, 92);
+            this.Show_Data.Location = new System.Drawing.Point(159, 25);
             this.Show_Data.Multiline = true;
             this.Show_Data.Name = "Show_Data";
             this.Show_Data.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.Show_Data.Size = new System.Drawing.Size(277, 283);
+            this.Show_Data.Size = new System.Drawing.Size(435, 195);
             this.Show_Data.TabIndex = 2;
             // 
             // Output
             // 
-            this.Output.Location = new System.Drawing.Point(305, 92);
+            this.Output.Location = new System.Drawing.Point(159, 239);
             this.Output.Multiline = true;
             this.Output.Name = "Output";
             this.Output.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.Output.Size = new System.Drawing.Size(490, 423);
+            this.Output.Size = new System.Drawing.Size(433, 292);
             this.Output.TabIndex = 3;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(120, 38);
+            this.button1.Location = new System.Drawing.Point(10, 96);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(143, 39);
             this.button1.TabIndex = 4;
-            this.button1.Text = "button1";
+            this.button1.Text = "Отправить на email";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // timer1
             // 
-            this.timer1.Interval = 3000;
+            this.timer1.Interval = 13000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // time
             // 
             this.time.AutoSize = true;
-            this.time.Location = new System.Drawing.Point(221, 12);
+            this.time.Location = new System.Drawing.Point(7, 183);
             this.time.Name = "time";
-            this.time.Size = new System.Drawing.Size(39, 13);
+            this.time.Size = new System.Drawing.Size(103, 13);
             this.time.TabIndex = 6;
-            this.time.Text = "время";
+            this.time.Text = "Время обновления";
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(201, 38);
+            this.button2.Location = new System.Drawing.Point(10, 141);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(143, 39);
             this.button2.TabIndex = 7;
             this.button2.Text = "WCF";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(161, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(56, 13);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "API сайта";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(161, 223);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(80, 13);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "Данные сайта";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(7, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(87, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Ссылка на сайт";
+            // 
             // Data
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(835, 533);
+            this.ClientSize = new System.Drawing.Size(608, 537);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.time);
             this.Controls.Add(this.button1);
@@ -138,6 +171,9 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label time;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }
 

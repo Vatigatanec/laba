@@ -58,7 +58,7 @@ namespace laba1
         {
             string result;
             HttpWebRequest myHttwebrequest = (HttpWebRequest)HttpWebRequest.Create(url);
-            HttpWebResponse myHttpWebresponse = (HttpWebResponse)myHttwebrequest.GetResponse();
+            HttpWebResponse myHttpWebresponse = (HttpWebResponse) await myHttwebrequest.GetResponseAsync();
             StreamReader strm = new StreamReader(myHttpWebresponse.GetResponseStream());
             result = strm.ReadToEnd();
             strm.Close();
@@ -72,9 +72,7 @@ namespace laba1
 
         private async Task<string> Asyng_Get_API(string url)
         {
-            var res = await Get_API(url);
-            Thread.Sleep(1000);
-            return res;
+            return await Get_API(url);
         }
 
         private void Deser_Data(object data, ref MyСurrency currency)
@@ -119,11 +117,11 @@ namespace laba1
             }
         }
 
-        private void Get_Data_Click(object sender, EventArgs e)
+        private async void Get_Data_Click(object sender, EventArgs e)
         {
             try
             {
-                string API = Asyng_Get_API(URL.Text).Result;
+                string API = await Asyng_Get_API(URL.Text);
                 MyСurrency currency = null;
                 ThreadPool.QueueUserWorkItem(_ => Deser_Data(API, ref currency));
                 Thread.Sleep(1000);
@@ -141,11 +139,11 @@ namespace laba1
             Send_Message(Output.Text);
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private async void timer1_Tick(object sender, EventArgs e)
         {
             try
             {
-                string API = Get_API(URL.Text).Result;
+                string API = await Asyng_Get_API(URL.Text);
                 MyСurrency currency = null;
                 ThreadPool.QueueUserWorkItem(_ => Deser_Data(API, ref currency));
                 Thread.Sleep(1000);

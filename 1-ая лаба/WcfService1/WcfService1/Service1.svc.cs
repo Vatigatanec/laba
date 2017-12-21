@@ -51,7 +51,8 @@ namespace WcfService1
         
         public string Get_Data_Web()
         {
-            return Asyng_Get_API(URL).Result;
+            string API = Asyng_Get_API(URL).Result;
+            return API;
         }
 
         public CompositeType GetDataUsingDataContract(CompositeType composite)
